@@ -9,6 +9,9 @@ const { join } = require('path')
 try {
   const UrlsFile = join(process.cwd(), 'google.txt')
   const [client_email, private_key] = process.argv.splice(2)
+  const client_pri_key = private_key
+    .replace(/^["|'](.*)["|']$/g, '')
+    .replace(/(\\|\\\\)n/g, '\n')
 
   function readFileToArr(fReadName) {
     return new Promise((resolve, reject) => {
@@ -24,10 +27,13 @@ try {
     })
   }
 
+  // google的gwt请求client
   const jwtClient = new google.auth.JWT(
+    // 客户端邮箱
     client_email,
     null,
-    private_key.replace(/(\\|\\\\)n/g, '\n'),
+    // 客户端私钥
+    client_pri_key,
     ['https://www.googleapis.com/auth/indexing'],
     null
   )
