@@ -6,7 +6,7 @@ const defaultConfig = {
 
 hexo.config.hexo_seo_autopush = Object.assign(defaultConfig, hexo.config.hexo_seo_autopush)
 
-hexo.extend.generator.register('BaiduGenerator', require('./lib/baidu_generator'))
-hexo.extend.generator.register('BingGenerator', require('./lib/bing_generator'))
-hexo.extend.generator.register('GoogleGenerator', require('./lib/google_generator'))
-hexo.extend.generator.register('actions', require('./lib/actions'))
+hexo.extend.generator.register('BaiduSeoGenerator', require('./lib/baidu_generator'))
+hexo.extend.generator.register('BingSeoGenerator', require('./lib/bing_generator'))
+hexo.extend.generator.register('GoogleSeoGenerator', require('./lib/google_generator'))
+hexo.extend.generator.register('GithubActionsHexoSeo', require('./lib/actions'))
