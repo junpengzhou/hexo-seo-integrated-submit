@@ -4,7 +4,12 @@
 # vscode
 .vscode
 
+# gitignore
+.gitignore
+
 # project file
 node_modules
 package-lock.json
 
+# image file
+images
