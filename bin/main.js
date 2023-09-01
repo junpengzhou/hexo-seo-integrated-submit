@@ -16,7 +16,7 @@ yargs
             type: 'string',
             alias: 'k',
             description: 'Your Google client private key',
-        }).demandOption(['email', 'key'], 'Please provide both email and key arguments to work with google submit!')
+        }).demandOption(['email', 'key'], '\x1B[31mPlease provide both email and key arguments to work with google submit!\x1B[0m')
             .example('$0 google --email xxx --key xxx', 'Submit to Google')
             .example('$0 google -e xxx -k xxx', 'Simplely Submit to Google')
     }, function (argv) {
@@ -31,7 +31,7 @@ yargs
             type: 'string',
             alias: 'k',
             description: 'Your Bing apikey',
-        }).demandOption(['key'], 'Please provide key argument to work with bing submit!')
+        }).demandOption(['key'], '\x1B[31mPlease provide key argument to work with bing submit!\x1B[0m')
             .example('$0 bing -key xxx', 'Submit to Bing')
             .example('$0 bing -k xxx', 'Simplely Submit to Bing')
     }, function (argv) {
@@ -45,7 +45,7 @@ yargs
             type: 'string',
             alias: 'k',
             description: 'Your Baidu apikey',
-        }).demandOption(['key'], 'Please provide key argument to work with baidu submit!')
+        }).demandOption(['key'], '\x1B[31mPlease provide key argument to work with baidu submit!\x1B[0m')
             .example('$0 baidu -key xxx', 'Submit to Baidu')
             .example('$0 baidu -k xxx', 'Simplely Submit to Baidu')
     }, function (argv) {
@@ -71,6 +71,6 @@ yargs
         example: 'http://localhost:1080'
     })
     .recommendCommands()
-    .showHelpOnFail(true, 'Specify --help for available options')
+    .showHelpOnFail(true, '\x1B[33mSpecify --help for available options\nor you can check the docs: https://github.com/junpengzhou/hexo-seo-integrated-submit#readmet\x1B[0m')
     .help()
     .argv
