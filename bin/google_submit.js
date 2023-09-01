@@ -1,9 +1,8 @@
 const axios = require('axios').default
 const { google } = require('googleapis')
 const util = require('../utils/util')
-const { join } = require('path')
 module.exports = (options) => {
-  console.info('Google submit, echo options: \n', JSON.stringify(options, null, 2))
+  console.info('Google submit, echo options: ', JSON.stringify(options, null, 2))
   try {
     const {client_email, private_key, proxy} = options
     // judge if use proxy to request the web interface
@@ -12,7 +11,6 @@ module.exports = (options) => {
       process.env.HTTPS_PROXY = proxy
       process.env.HTTP_PROXY = proxy
     }
-    const urls_file = join(process.cwd(), 'google.txt')
     const client_pri_key = private_key
       .replace(/^["|'](.*)["|']$/g, '')
       .replace(/(\\|\\\\)n/g, '\n')
@@ -28,7 +26,7 @@ module.exports = (options) => {
     jwtClient
       .authorize()
       .then((tokens) => {
-        util.readCrawlerFileJSON(urls_file)
+        util.readCrawlerFileJSON()
           .then((data) => {
             if (!data) {
               console.log('No have any data to submit,finish!')

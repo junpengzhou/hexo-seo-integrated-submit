@@ -1,11 +1,15 @@
 
-const fs = require('fs');
+const fs = require('fs')
+const { join } = require('path')
 
 // read the crawler.json file to json object
-function readCrawlerFileJSON(fReadName) {
+function readCrawlerFileJSON() {
   return new Promise((resolve, reject) => {
     try {
-      fs.readFile(fReadName, 'utf8', (error, data) => {
+      // get crawler.json's absolute path
+      const file_json = join(process.cwd(), 'crawler.json')
+      // read the crawler.json file
+      fs.readFile(file_json, 'utf8', (error, data) => {
         if (error) {
           return reject(error)
         }

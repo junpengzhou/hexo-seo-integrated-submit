@@ -1,9 +1,8 @@
 const axios = require('axios').default
 const util = require('../utils/util')
-const { join } = require('path')
 
 module.exports = (options) => {
-  console.info('Bing submit, echo options: \n', JSON.stringify(options, null, 2))
+  console.info('Bing submit, echo options: ', JSON.stringify(options, null, 2))
   try {
     const { apikey, proxy } = options
     // judge if use proxy to request the web interface
@@ -11,9 +10,8 @@ module.exports = (options) => {
       process.env.HTTPS_PROXY = proxy
       process.env.HTTP_PROXY = proxy
     }
-    const urls_file = join(process.cwd(), 'crawler.json')
 
-    util.readCrawlerFileJSON(urls_file)
+    util.readCrawlerFileJSON()
       .then((data) => {
         if (!data) {
           console.log('No have any data to submit,finish!')
