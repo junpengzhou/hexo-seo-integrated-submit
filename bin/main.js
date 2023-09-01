@@ -7,20 +7,18 @@ const baidu_submit = require('./baidu_submit')
 yargs
     .scriptName("hexo-sis")
     .usage('Useage: $0 <cmd> [args]')
-    .command('google [email] [key]', 'Submit crawlye data to Google Search Engine', (yargs) => {
-        yargs.positional('email', {
+    .command('google', 'Submit crawler data to Google Search Engine', (yargs) => {
+        yargs.option('email', {
             type: 'string',
-            default: '',
             alias: 'e',
-            describe: 'The Email is your acount\'s username to login Google Search Console',
-        }).positional('key', {
+            description: 'The Email is your acount\'s username to login Google Search Console',
+        }).option('key', {
             type: 'string',
-            default: '',
             alias: 'k',
-            describe: 'Your Google client private key',
-        }).demandOption(['email', 'key'])
-            .example('hxeo-sis google --email xxx --key xxx', 'Submit to Google')
-            .example('hxeo-sis google -e xxx -k xxx', 'Simplely Submit to Google')
+            description: 'Your Google client private key',
+        }).demandOption(['email', 'key'], 'Please provide both email and key arguments to work with google submit!')
+            .example('$0 google --email xxx --key xxx', 'Submit to Google')
+            .example('$0 google -e xxx -k xxx', 'Simplely Submit to Google')
     }, function (argv) {
         // begin google submit
         google_submit({
@@ -28,28 +26,28 @@ yargs
             private_key: argv.key,
             proxy: argv.proxy
         })
-    }).command('bing [key]', 'Submit crawlye data to Bing Search Engine', (yargs) => {
+    }).command('bing [key]', 'Submit crawler data to Bing Search Engine', (yargs) => {
         yargs.positional('key', {
             type: 'string',
-            default: '',
             alias: 'k',
-            describe: 'Your Bing apikey',
-        }).example('hxeo-sis bing -key xxx', 'Submit to Bing')
-            .example('hxeo-sis bing -k xxx', 'Simplely Submit to Bing')
+            description: 'Your Bing apikey',
+        }).demandOption(['key'], 'Please provide key argument to work with bing submit!')
+            .example('$0 bing -key xxx', 'Submit to Bing')
+            .example('$0 bing -k xxx', 'Simplely Submit to Bing')
     }, function (argv) {
         // begin bing submit
         bing_submit({
             apikey: argv.key,
             proxy: argv.proxy
         })
-    }).command('baidu [key]', 'Submit crawlye data to Google Search Engine', (yargs) => {
+    }).command('baidu [key]', 'Submit crawler data to Google Search Engine', (yargs) => {
         yargs.positional('key', {
             type: 'string',
-            default: '',
             alias: 'k',
-            describe: 'Your Baidu apikey',
-        }).example('hxeo-sis baidu -key xxx', 'Submit to Baidu')
-            .example('hxeo-sis baidu -k xxx', 'Simplely Submit to Baidu')
+            description: 'Your Baidu apikey',
+        }).demandOption(['key'], 'Please provide key argument to work with baidu submit!')
+            .example('$0 baidu -key xxx', 'Submit to Baidu')
+            .example('$0 baidu -k xxx', 'Simplely Submit to Baidu')
     }, function (argv) {
         // begin baidu submit
         baidu_submit({
@@ -60,16 +58,16 @@ yargs
     .demandCommand(1, 'You need at least one command before moving on')
     .strictCommands(true)
     .strictOptions(true)
-    .example('hxeo-sis google --email xxx --key xxx', 'Submit to Google')
-    .example('hxeo-sis google -e xxx -k xxx', 'Simplely Submit to Google')
-    .example('hxeo-sis bing -key xxx', 'Submit to Bing')
-    .example('hxeo-sis bing -k xxx', 'Simplely Submit to Bing')
-    .example('hxeo-sis baidu -key xxx', 'Submit to Baidu')
-    .example('hxeo-sis baidu -k xxx', 'Simplely Submit to Baidu')
+    .example('$0 google --email xxx --key xxx', 'Submit to Google')
+    .example('$0 google -e xxx -k xxx', 'Simplely Submit to Google')
+    .example('$0 bing -key xxx', 'Submit to Bing')
+    .example('$0 bing -k xxx', 'Simplely Submit to Bing')
+    .example('$0 baidu -key xxx', 'Submit to Baidu')
+    .example('$0 baidu -k xxx', 'Simplely Submit to Baidu')
     .option('proxy', {
         alias: 'p',
         type: 'string',
-        describe: 'config a proxy',
+        description: 'Config proxy will be worked when requesting outside interface',
         example: 'http://localhost:1080'
     })
     .recommendCommands()
