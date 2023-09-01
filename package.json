@@ -1,11 +1,11 @@
 {
   "name": "hexo-seo-integrated-submit",
   "version": "1.0.0",
-  "description": "SEO project，integrated submit latest website data to Baidu and Google and Bing | SEO项目，集成主动推送最新站点数据到各类主流搜索引擎",
+  "description": "SEO project，integrated submit latest urls to Baidu and Google and Bing ect... search engine",
   "main": "index.js",
   "scripts": {},
   "bin": {
-    "hexoautopush": "bin/google_push.js"
+    "hexo-sis": "bin/main.js"
   },
   "keywords": [
     "hexo",
@@ -29,7 +29,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "googleapis": "^67.0.0",
-    "request": "^2.88.2"
+    "axios": "^1.5.0",
+    "googleapis": "^126.0.1",
+    "yargs": "^17.7.2"
   }
 }
