@@ -1,6 +1,6 @@
 {
   "name": "hexo-seo-integrated-submit",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "SEO project，integrated submit latest urls to Baidu and Google and Bing ect... search engine",
   "main": "index.js",
   "scripts": {},
