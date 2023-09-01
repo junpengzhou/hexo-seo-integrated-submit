@@ -2,7 +2,6 @@ const axios = require('axios').default
 const util = require('../utils/util')
 
 module.exports = (options) => {
-  console.info('Bing submit, echo options: ', JSON.stringify(options, null, 2))
   try {
     const { apikey, proxy } = options
     // judge if use proxy to request the web interface
@@ -13,15 +12,6 @@ module.exports = (options) => {
 
     util.readCrawlerFileJSON()
       .then((data) => {
-        if (!data) {
-          console.log('No have any data to submit,finish!')
-          return
-        }
-        const urlList = data.urlList
-        if (!urlList || urlList.length === 0) {
-          console.log('No have any data to submit,finish!')
-          return
-        }
         // Use BingSubmitBatch interface to submit the latest urls.
         const options = {
           url: `https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlBatch?apikey=${apikey}`,
@@ -30,7 +20,10 @@ module.exports = (options) => {
             'Content-Type': 'application/json;charset=utf-8',
             'charset': 'utf-8'
           },
-          data: data
+          data: {
+            siteUrl: data.siteUrl,
+            urlList: data.urlList
+          }
         }
         // request bing
         axios.post(options)

@@ -2,7 +2,6 @@ const axios = require('axios').default
 const { google } = require('googleapis')
 const util = require('../utils/util')
 module.exports = (options) => {
-  console.info('Google submit, echo options: ', JSON.stringify(options, null, 2))
   try {
     const {client_email, private_key, proxy} = options
     // judge if use proxy to request the web interface
@@ -28,15 +27,7 @@ module.exports = (options) => {
       .then((tokens) => {
         util.readCrawlerFileJSON()
           .then((data) => {
-            if (!data) {
-              console.log('No have any data to submit,finish!')
-              return
-            }
             const urlList = data.urlList
-            if (!urlList) {
-              console.log('No have any data to submit,finish!')
-              return
-            }
             for (let i = 0; i < urlList.length; i++) {
               const options = {
                 url: 'https://indexing.googleapis.com/v3/urlNotifications:publish',

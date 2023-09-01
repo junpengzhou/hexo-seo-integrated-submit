@@ -13,15 +13,7 @@ module.exports = (options) => {
 
     util.readCrawlerFileJSON()
       .then((data) => {
-        if (!data) {
-          console.log('No have any data to submit,finish!')
-          return
-        }
         const urlList = data.urlList
-        if (!urlList || urlList.length === 0) {
-          console.log('No have any data to submit,finish!')
-          return
-        }
         const body = urlList.join('\n')
         // Use BingSubmitBatch interface to submit the latest urls.
         const options = {

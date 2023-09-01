@@ -1,4 +1,5 @@
 
+const { throws } = require('assert')
 const fs = require('fs')
 const { join } = require('path')
 
@@ -6,26 +7,45 @@ const { join } = require('path')
 function readCrawlerFileJSON() {
   return new Promise((resolve, reject) => {
     try {
-      // get crawler.json's absolute path
-      const file_json = join(process.cwd(), 'crawler.json')
+      // find the crawler file path
+      const file_path = scanCrawlerFilePath()
       // read the crawler.json file
-      fs.readFile(file_json, 'utf8', (error, data) => {
+      fs.readFile(file_path, 'utf8', (error, data) => {
         if (error) {
           return reject(error)
         }
         if (!data) {
           return reject('Has no data to submit, exit!')
         }
-        const urlList = data.urlList
-        if (!urlList || new Array(urlList).length === 0) {
+        const jsonData = JSON.parse(data)
+        const urlList = jsonData.urlList || []
+        if (urlList.length === 0) {
           return reject('Has no urlList to submit, exit!')
         }
-        return resolve(data)
+        return resolve(jsonData)
       })
     } catch (error) {
       return reject(error)
     }
   })
+}
+
+function scanCrawlerFilePath() {
+  const file_path_one = 'crawler.json'
+  const file_path_two = 'public/crawler.json'
+  let file_path
+  // scan the public and root dir to find the crawler.json
+  try {
+    fs.accessSync(file_path_one, fs.constants.F_OK)
+    return file_path = join(process.cwd(), file_path_one)
+  } catch (err) {
+    try {
+      fs.accessSync(file_path_two, fs.constants.F_OK)
+      return file_path = join(process.cwd(), file_path_two)
+    } catch (err) {
+      throw err
+    }
+  }
 }
 
 module.exports = {
