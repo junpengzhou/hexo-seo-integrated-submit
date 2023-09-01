@@ -1,4 +1,4 @@
-const axios = require('axios').default
+const axios = require('axios')
 const util = require('../utils/util')
 
 module.exports = (options) => {
@@ -13,7 +13,8 @@ module.exports = (options) => {
     util.readCrawlerFileJSON()
       .then((data) => {
         // Use BingSubmitBatch interface to submit the latest urls.
-        const options = {
+        // request bing
+        axios({
           url: `https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlBatch?apikey=${apikey}`,
           method: 'POST',
           headers: {
@@ -24,18 +25,13 @@ module.exports = (options) => {
             siteUrl: data.siteUrl,
             urlList: data.urlList
           }
-        }
-        // request bing
-        axios.post(options)
-          .then(function (response) {
-            console.log('Bing response: ', response)
-          })
-          .catch(function (error) {
-            console.log(error);
-          })
-          .finally(function () {
-            console.log('finish request!')
-          })
+        }).then(function (response) {
+          console.log('Bing response: ', response)
+        }).catch(function (error) {
+          console.log(error);
+        }).finally(function () {
+          console.log('finish request!')
+        })
       })
       .catch((error) => console.error(error))
   } catch (error) {

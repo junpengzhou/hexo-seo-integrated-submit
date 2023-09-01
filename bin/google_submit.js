@@ -1,9 +1,9 @@
-const axios = require('axios').default
+const axios = require('axios')
 const { google } = require('googleapis')
 const util = require('../utils/util')
 module.exports = (options) => {
   try {
-    const {client_email, private_key, proxy} = options
+    const { client_email, private_key, proxy } = options
     // judge if use proxy to request the web interface
     if (proxy) {
       google.options({ proxy: proxy })
@@ -13,7 +13,7 @@ module.exports = (options) => {
     const client_pri_key = private_key
       .replace(/^["|'](.*)["|']$/g, '')
       .replace(/(\\|\\\\)n/g, '\n')
-  
+
     const jwtClient = new google.auth.JWT(
       client_email,
       null,
@@ -21,7 +21,7 @@ module.exports = (options) => {
       ['https://www.googleapis.com/auth/indexing'],
       null
     )
-  
+
     jwtClient
       .authorize()
       .then((tokens) => {
@@ -29,27 +29,24 @@ module.exports = (options) => {
           .then((data) => {
             const urlList = data.urlList
             for (let i = 0; i < urlList.length; i++) {
-              const options = {
-                url: 'https://indexing.googleapis.com/v3/urlNotifications:publish',
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                auth: { bearer: tokens.access_token },
-                data: {
-                  url: urlList[i],
-                  type: 'URL_UPDATED'
-                }
-              }
-              // request google
-              axios.post(options)
-                .then(function (response) {
+              const options =
+                // request google
+                axios({
+                  url: 'https://indexing.googleapis.com/v3/urlNotifications:publish',
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  auth: { bearer: tokens.access_token },
+                  data: {
+                    url: urlList[i],
+                    type: 'URL_UPDATED'
+                  }
+                }).then(function (response) {
                   console.log('Google response: ', response)
-                })
-                .catch(function (error) {
+                }).catch(function (error) {
                   console.log(error);
-                })
-                .finally(function () {
+                }).finally(function () {
                   console.log('finish request!')
                 })
             }
