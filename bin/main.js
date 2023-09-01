@@ -51,7 +51,7 @@ yargs
     }, function (argv) {
         // begin baidu submit
         baidu_submit({
-            apikey: argv.key,
+            baidu_token: argv.key,
             proxy: argv.proxy
         })
     })
