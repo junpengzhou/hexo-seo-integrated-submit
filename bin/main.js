@@ -8,11 +8,11 @@ yargs
     .scriptName("hexo-sis")
     .usage('Useage: $0 <cmd> [args]')
     .command('google', 'Submit crawler data to Google Search Engine', (yargs) => {
-        yargs.option('email', {
+        yargs.positional('email', {
             type: 'string',
             alias: 'e',
             description: 'The Email is your acount\'s username to login Google Search Console',
-        }).option('key', {
+        }).positional('key', {
             type: 'string',
             alias: 'k',
             description: 'Your Google client private key',
