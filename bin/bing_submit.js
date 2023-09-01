@@ -14,6 +14,7 @@ module.exports = (options) => {
       .then((data) => {
         // Use BingSubmitBatch interface to submit the latest urls.
         // request bing
+        const start = new Date().getTime()
         axios({
           url: `https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlBatch?apikey=${apikey}`,
           method: 'POST',
@@ -26,11 +27,12 @@ module.exports = (options) => {
             urlList: data.urlList
           }
         }).then(function (response) {
-          console.log('Bing response: ', response)
+          console.log('status: %s, statusTxt: %s, response:%s, cost:%s', response.status, response.statusText, response.data)
         }).catch(function (error) {
           console.log(error);
         }).finally(function () {
-          console.log('finish request!')
+          const end = new Date().getTime()
+          console.log('it cost: %s', (end - start) + 'ms')
         })
       })
       .catch((error) => console.error(error))

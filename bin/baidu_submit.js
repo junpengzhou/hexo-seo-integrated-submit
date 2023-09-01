@@ -17,6 +17,7 @@ module.exports = (options) => {
         const body = urlList.join('\n')
         // Use BingSubmitBatch interface to submit the latest urls.
         // request baidu
+        const start = new Date().getTime()
         axios({
           url: `http://data.zz.baidu.com/urls?site=${data.siteUrl}&token=${baidu_token}`,
           method: 'post',
@@ -25,11 +26,12 @@ module.exports = (options) => {
           },
           data: body
         }).then(function (response) {
-          console.log('Baidu response: ', response)
+          console.log('status: %s, statusTxt: %s, response:%s, cost:%s', response.status, response.statusText, response.data)
         }).catch(function (error) {
           console.log(error);
         }).finally(function () {
-          console.log('finish request!')
+          const end = new Date().getTime()
+          console.log('it cost: %s', (end - start) + 'ms')
         })
       })
       .catch((error) => console.error(error))
