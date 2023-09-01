@@ -7,7 +7,7 @@ const baidu_submit = require('./baidu_submit')
 yargs
     .scriptName("hexo-sis")
     .usage('Useage: $0 <command> [options]')
-    .command('google', 'Submit crawler data to Google Search Engine', (yargs) => {
+    .command('google <key> <email>', 'Submit crawler data to Google Search Engine', (yargs) => {
         yargs.positional('email', {
             type: 'string',
             alias: 'e',
@@ -26,7 +26,7 @@ yargs
             private_key: argv.key,
             proxy: argv.proxy
         })
-    }).command('bing [key]', 'Submit crawler data to Bing Search Engine', (yargs) => {
+    }).command('bing <key>', 'Submit crawler data to Bing Search Engine', (yargs) => {
         yargs.positional('key', {
             type: 'string',
             alias: 'k',
@@ -40,7 +40,7 @@ yargs
             apikey: argv.key,
             proxy: argv.proxy
         })
-    }).command('baidu [key]', 'Submit crawler data to Google Search Engine', (yargs) => {
+    }).command('baidu <key>', 'Submit crawler data to Google Search Engine', (yargs) => {
         yargs.positional('key', {
             type: 'string',
             alias: 'k',
