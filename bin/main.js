@@ -6,7 +6,7 @@ const baidu_submit = require('./baidu_submit')
 
 yargs
     .scriptName("hexo-sis")
-    .usage('Useage: $0 <command> [args]')
+    .usage('Useage: $0 <command> [options]')
     .command('google', 'Submit crawler data to Google Search Engine', (yargs) => {
         yargs.positional('email', {
             type: 'string',
