@@ -27,7 +27,7 @@ module.exports = (options) => {
             urlList: data.urlList
           }
         }).then(function (response) {
-          console.log('status: %s, statusTxt: %s, response:%s, cost:%s', response.status, response.statusText, response.data)
+          console.log('status: %s, statusTxt: %s, response:%s', response.status, response.statusText, response.data)
         }).catch(function (error) {
           console.log(error);
         }).finally(function () {
