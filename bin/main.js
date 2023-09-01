@@ -12,13 +12,14 @@ yargs
             type: 'string',
             default: '',
             alias: 'e',
-            describe: 'The Email is your acount\'s username to login Google Search Console'
+            describe: 'The Email is your acount\'s username to login Google Search Console',
         }).positional('key', {
             type: 'string',
             default: '',
             alias: 'k',
-            describe: 'Your Google client private key'
-        }).example('hxeo-sis google --email xxx --key xxx', 'Submit to Google')
+            describe: 'Your Google client private key',
+        }).demandOption(['email', 'key'])
+            .example('hxeo-sis google --email xxx --key xxx', 'Submit to Google')
             .example('hxeo-sis google -e xxx -k xxx', 'Simplely Submit to Google')
     }, function (argv) {
         // begin google submit
@@ -32,7 +33,7 @@ yargs
             type: 'string',
             default: '',
             alias: 'k',
-            describe: 'Your Bing apikey'
+            describe: 'Your Bing apikey',
         }).example('hxeo-sis bing -key xxx', 'Submit to Bing')
             .example('hxeo-sis bing -k xxx', 'Simplely Submit to Bing')
     }, function (argv) {
@@ -46,7 +47,7 @@ yargs
             type: 'string',
             default: '',
             alias: 'k',
-            describe: 'Your Baidu apikey'
+            describe: 'Your Baidu apikey',
         }).example('hxeo-sis baidu -key xxx', 'Submit to Baidu')
             .example('hxeo-sis baidu -k xxx', 'Simplely Submit to Baidu')
     }, function (argv) {
@@ -56,6 +57,9 @@ yargs
             proxy: argv.proxy
         })
     })
+    .demandCommand(1, 'You need at least one command before moving on')
+    .strictCommands(true)
+    .strictOptions(true)
     .example('hxeo-sis google --email xxx --key xxx', 'Submit to Google')
     .example('hxeo-sis google -e xxx -k xxx', 'Simplely Submit to Google')
     .example('hxeo-sis bing -key xxx', 'Submit to Bing')
@@ -68,5 +72,7 @@ yargs
         describe: 'config a proxy',
         example: 'http://localhost:1080'
     })
+    .recommendCommands()
+    .showHelpOnFail(true, 'Specify --help for available options')
     .help()
     .argv
