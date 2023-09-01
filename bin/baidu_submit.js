@@ -2,11 +2,11 @@ const axios = require('axios').default
 const util = require('../utils/util')
 
 module.exports = (options) => {
-  console.info('Baidu submit, echo options: ', JSON.stringify(options, null, 2))
   try {
     const {baidu_token, proxy} = options
     // judge if use proxy to request the web interface
     if (proxy) {
+      console.log('config with proxy:', proxy)
       process.env.HTTPS_PROXY = proxy
       process.env.HTTP_PROXY = proxy
     }
@@ -18,7 +18,7 @@ module.exports = (options) => {
         // Use BingSubmitBatch interface to submit the latest urls.
         const options = {
           url: `http://data.zz.baidu.com/urls?site=${data.siteUrl}&token=${baidu_token}`,
-          method: 'POST',
+          method: 'post',
           headers: {
             'Content-Type': 'text/plain'
           },
