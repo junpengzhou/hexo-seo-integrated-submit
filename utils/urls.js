@@ -1,17 +1,17 @@
 const { sortDownDate } = require('./sort')
 
 module.exports = (locals, count, date) => {
-  date = date == 'created' ? 'date' : 'updated' // 日期
+  date = date == 'created' ? 'date' : 'updated'
 
   let posts = [].concat(locals.posts.toArray())
   let urls = posts.map((post) => {
     return {
-      date: post[date].format('yyyy-MM-DD HH:mm:ss'), // 格式化日期
+      date: post[date].format('yyyy-MM-DD HH:mm:ss'),
       permalink: post.permalink
     }
   })
-
-  let sort_urls = sortDownDate(urls, 'date') // 降序排列如期
+  // Desc sort by date
+  let sort_urls = sortDownDate(urls, 'date')
   return sort_urls
     .slice(0, count || undefined)
     .map((post) => post.permalink)
