@@ -35,9 +35,9 @@ module.exports = (options) => {
                 url: 'https://indexing.googleapis.com/v3/urlNotifications:publish',
                 method: 'POST',
                 headers: {
-                  'Content-Type': 'application/json'
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${tokens.access_token}`
                 },
-                auth: { bearer: tokens.access_token },
                 data: {
                   url: urlList[i],
                   type: 'URL_UPDATED'
