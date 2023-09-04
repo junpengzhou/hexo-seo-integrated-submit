@@ -9,35 +9,34 @@
 1. 安装
 
 ```bash
-npm install hexo-seo-autopush --save
+npm install hexo-seo-integrated-submit --save
 ```
 
 2. 配置文件
    在 hexo 的 \_config.yml 配置文件中添加以下内容
 
 ```yml
+# 集成推送到各个搜索引擎平台（谷歌、必应、百度）
+# generate_workflow_file: 是否生成github actions workflow文件
 # enable: 开启/关闭 推送
 # cron: 执行时间周期
 # count: 每次提交最新的10篇文章，输入0或者不填写则默认为所有文章(建议是最新的10篇文章)
 # date: 更新时间(updated)|创建日期(created)
-# https://github.com/Lete114/hexo-seo-autopush.git
-hexo_seo_autopush:
+# https://github.com/junpengzhou/hexo-seo-integrated-submit
+hexo_seo_integrated_submit:
+  generate_workflow_file: true
+  date: created
+  count: 10
   cron: 0 4 * * *
   baidu:
     enable: true
-    date: created
-    count: 10
   bing:
     enable: true
-    date: created
-    count: 10
   google:
     enable: true
-    date: created
-    count: 10
 ```
 
-由于生成的 actions 是在`.github/workflows/HexoSeoAutoPush.yml`，点开头的文件或文件夹都会被视为隐藏文件，所以 hexo 不会将隐藏文件部署到 pages，需要新增配置`ignore_hidden`
+由于生成的 actions 是在`.github/workflows/hexo-seo-integrated-submit.yml`，点开头的文件或文件夹都会被视为隐藏文件，所以 hexo 不会将隐藏文件部署到 pages，需要新增配置`ignore_hidden`
 
 ```yml
 deploy:

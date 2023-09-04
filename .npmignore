@@ -13,3 +13,9 @@ package-lock.json
 
 # image file
 images
+
+crawler.json
+
+debug.log
+
+.vscode
