@@ -2,20 +2,57 @@
 
 每天中午 12 点推送一次网站信息到 Baidu 和 Bing，提高爬虫抓取几率
 
-可手动点击`star`触发 Actions
+可手动点击`start`触发 Actions
 
 ## 使用
 
 1. 安装
 
-```bash
+```shell
 npm install hexo-seo-integrated-submit --save
+```
+
+全局安装命令行工具
+```shell
+npm install --global hexo-seo-integrated-submit
+```
+获取命令行帮助
+```shell
+hexo-sis --help
+```
+
+```shell
+Useage: hexo-sis <command> [options]
+
+Commands:
+  hexo-sis google  Submit crawler data to Google Search Engine
+  hexo-sis bing    Submit crawler data to Bing Search Engine
+  hexo-sis baidu   Submit crawler data to Google Search Engine
+
+Options:
+      --version  Show version number                                   [boolean]
+  -p, --proxy    Config proxy will be worked when requesting outside interface
+                                                                        [string]
+      --help     Show help                                             [boolean]
+
+Examples:
+  hexo-sis google --email xxx --key xxx  Submit to Google
+  hexo-sis google -e xxx -k xxx          Simplely Submit to Google
+  hexo-sis bing -key xxx                 Submit to Bing
+  hexo-sis bing -k xxx                   Simplely Submit to Bing
+  hexo-sis baidu -key xxx                Submit to Baidu
+  hexo-sis baidu -k xxx                  Simplely Submit to Baidu
+
+You need at least one command before moving on
+
+Specify --help for available options
+or you can check the docs: https://github.com/junpengzhou/hexo-seo-integrated-submit#readme
 ```
 
 2. 配置文件
    在 hexo 的 \_config.yml 配置文件中添加以下内容
 
-```yml
+```yaml
 # 集成推送到各个搜索引擎平台（谷歌、必应、百度）
 # generate_workflow_file: 是否生成github actions workflow文件
 # enable: 开启/关闭 推送
@@ -38,7 +75,7 @@ hexo_seo_integrated_submit:
 
 由于生成的 actions 是在`.github/workflows/hexo-seo-integrated-submit.yml`，点开头的文件或文件夹都会被视为隐藏文件，所以 hexo 不会将隐藏文件部署到 pages，需要新增配置`ignore_hidden`
 
-```yml
+```yaml
 deploy:
   type: git
   repo: https://github.com/<username>/<project>
@@ -51,11 +88,11 @@ deploy:
    打开你博客仓库地址如下图
    ![Secrets](https://user-images.githubusercontent.com/48512251/137736248-80c8ae8d-7f5e-40b1-81f9-4a1bb78fcd8f.png)
 
-| Name                | Value             | 说明                                                                                                   |
-| ------------------- | ----------------- | ------------------------------------------------------------------------------------------------------ |
+| Name                | Value             | 说明                                                                                                  |
+| ------------------- | ----------------- | :---------------------------------------------------------------------------------------------------- |
 | baidu_token         | UlxxxxxxxxxxxxxB9 | 【必填】Value 输入百度的 token                                                                         |
 | bing_apikey         | 47xxxxxxxxxxxxx91 | 【必填】Value 输入必应的 apikey                                                                        |
-| google_private_key  | xxxxxxxxxxxxxxxxx | 【必填】Value 输入谷歌的 private_key （注意：填写的时候需要使用**双引号**包起来，如: `"private_key"`） |
+| google_private_key  | xxxxxxxxxxxxxxxxx | 【必填】Value 输入谷歌的 private_key （注意：填写的时候需要使用**双引号**包起来，如: `"private_key"`）     |
 | google_client_email | xxxxxxxxxxxxxxxxx | 【必填】Value 输入谷歌的 client_email                                                                  |
 
 ## Baidu key
