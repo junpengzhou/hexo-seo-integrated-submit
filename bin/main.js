@@ -71,6 +71,6 @@ yargs
         example: 'http://localhost:1080'
     })
     .recommendCommands()
-    .showHelpOnFail(true, '\x1B[33mSpecify --help for available options\nor you can check the docs: https://github.com/junpengzhou/hexo-seo-integrated-submit#readmet\x1B[0m')
+    .showHelpOnFail(true, '\x1B[33mSpecify --help for available options\nor you can check the docs: https://github.com/junpengzhou/hexo-seo-integrated-submit#readme\x1B[0m')
     .help()
     .argv
