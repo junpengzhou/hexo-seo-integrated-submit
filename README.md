@@ -1,8 +1,8 @@
 ## 说明
 
-每天中午 12 点推送一次网站信息到 Baidu 和 Bing，提高爬虫抓取几率
+每天中午 12 点推送一次网站信息到 Baidu 和 Bing，提高搜索引擎收录网站的几率
 
-可手动点击`start`触发 Actions
+可手动点击`start`手动触发 Git Actions
 
 ## 使用
 
@@ -12,15 +12,49 @@
 npm install hexo-seo-integrated-submit --save
 ```
 
-全局安装命令行工具
+2. 配置文件
+   在 hexo 的 \_config.yml 配置文件中添加以下内容
+
+```yaml
+# 集成推送到各个搜索引擎平台（谷歌、必应、百度）
+# generate_workflow_file: 是否生成github actions workflow文件
+# enable: 开启/关闭 推送
+# cron: 执行时间周期
+# count: 每次提交最新的10篇文章，输入0或者不填写则默认为所有文章(建议是最新的10篇文章)
+# date: 更新时间(updated)|创建日期(created)
+# https://github.com/junpengzhou/hexo-seo-integrated-submit
+hexo_seo_integrated_submit:
+  generate_workflow_file: true # 如果仅使用纯命令行工具进行，可无需生成，如需自动化可按命令行工具自行配置，也可使用本工具所生成的workflow文件
+  date: created
+  count: 10
+  cron: 0 4 * * *
+  baidu:
+    enable: true
+  bing:
+    enable: true
+  google:
+    enable: true
+```
+
+### 方式一、纯命令行工具的使用
+1. 全局安装命令行工具
 ```shell
 npm install --global hexo-seo-integrated-submit
 ```
-获取命令行帮助
+
+2. 获取命令行帮助
+* 获取全局帮助
 ```shell
 hexo-sis --help
 ```
+* 获取特定命令帮助
+```shell
+hexo-sis google --help # 获取谷歌推送相关命令帮助
+hexo-sis bing --help # 获取必应推送相关命令帮助
+hexo-sis baidu --help # 获取百度推送相关命令帮助
+```
 
+3. 命令行工具使用（在hexo的根目录或其public目录下，均可使用）
 ```shell
 Useage: hexo-sis <command> [options]
 
@@ -36,12 +70,12 @@ Options:
       --help     Show help                                             [boolean]
 
 Examples:
-  hexo-sis google --email xxx --key xxx  Submit to Google
-  hexo-sis google -e xxx -k xxx          Simplely Submit to Google
-  hexo-sis bing -key xxx                 Submit to Bing
-  hexo-sis bing -k xxx                   Simplely Submit to Bing
-  hexo-sis baidu -key xxx                Submit to Baidu
-  hexo-sis baidu -k xxx                  Simplely Submit to Baidu
+  hexo-sis google --email "xxx" --key "xxx"  Submit to Google
+  hexo-sis google -e "xxx" -k "xxx"          Simplely Submit to Google
+  hexo-sis bing -key "xxx"                 Submit to Bing
+  hexo-sis bing -k "xxx"                   Simplely Submit to Bing
+  hexo-sis baidu -key "xxx"                Submit to Baidu
+  hexo-sis baidu -k "xxx"                  Simplely Submit to Baidu
 
 You need at least one command before moving on
 
@@ -49,29 +83,7 @@ Specify --help for available options
 or you can check the docs: https://github.com/junpengzhou/hexo-seo-integrated-submit#readme
 ```
 
-2. 配置文件
-   在 hexo 的 \_config.yml 配置文件中添加以下内容
-
-```yaml
-# 集成推送到各个搜索引擎平台（谷歌、必应、百度）
-# generate_workflow_file: 是否生成github actions workflow文件
-# enable: 开启/关闭 推送
-# cron: 执行时间周期
-# count: 每次提交最新的10篇文章，输入0或者不填写则默认为所有文章(建议是最新的10篇文章)
-# date: 更新时间(updated)|创建日期(created)
-# https://github.com/junpengzhou/hexo-seo-integrated-submit
-hexo_seo_integrated_submit:
-  generate_workflow_file: true
-  date: created
-  count: 10
-  cron: 0 4 * * *
-  baidu:
-    enable: true
-  bing:
-    enable: true
-  google:
-    enable: true
-```
+### 方式二、使用github action + 命令行工具
 
 由于生成的 actions 是在`.github/workflows/hexo-seo-integrated-submit.yml`，点开头的文件或文件夹都会被视为隐藏文件，所以 hexo 不会将隐藏文件部署到 pages，需要新增配置`ignore_hidden`
 
@@ -199,7 +211,12 @@ google_client_email: json文件中的client_email字段, 填入时不带双引�
 
 ## 验证
 
-取消Star, 再点击Star, 触发自动提交.
+![](/images/Gihub_Actions_run_once_manual.png)
+
+1. 在Github中点击目标项目的Actions按钮
+2. 选中右侧的run workflow按钮
+3. 选择目标分支
+4. 点击`Run workflow`
 
 ### GitHub Action结果
 
@@ -209,11 +226,11 @@ google_client_email: json文件中的client_email字段, 填入时不带双引�
 
 ```text
 # 百度的
-{"remain":90,"success":10}
+status: 200, statusTxt: OK, response:{ remain: 90, success: 10 }
 # 必应的
-{"d":null}
+status: 200, statusTxt: OK, response:{ d: null }
 # 谷歌的
-Google response: {...}
+status: 200, statusTxt: OK, response:{ urlNotificationMetadata: [Object] }
 ```
 
 ![](https://img-res.oss-cn-beijing.aliyuncs.com/img/谷歌IndexingAPI-测试.jpg)
