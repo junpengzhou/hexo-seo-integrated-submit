@@ -36,6 +36,13 @@ hexo_seo_integrated_submit:
     enable: true
 ```
 
+  再次检查config.yml中是否配置有发布网站的url（互联网地址）
+```yaml
+# URL
+## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
+url: 'https://www.junpengzhou.top'
+```
+
 由于生成的 actions 是在`.github/workflows/hexo-seo-integrated-submit.yml`，点开头的文件或文件夹都会被视为隐藏文件，所以 hexo 不会将隐藏文件部署到 pages，需要新增配置`ignore_hidden`
 
 ```yml

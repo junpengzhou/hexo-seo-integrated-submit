@@ -1,10 +1,10 @@
 ## 说明
 
-每天中午 12 点推送一次网站信息到 Baidu 和 Bing，提高搜索引擎收录网站的几率
+集成式主动推送站点信息到各个谷歌、必应、百度等搜索引擎，提高搜索引擎收录网站的几率和效率
 
 ## 使用
 
-1. 安装
+1. 安装（hexo项目中）
 
 ```shell
 npm install hexo-seo-integrated-submit --save
@@ -27,11 +27,18 @@ hexo_seo_integrated_submit:
   count: 10
   cron: 0 4 * * *
   baidu:
-    enable: true
+    enable: true # 开启百度搜索引擎主动推送
   bing:
-    enable: true
+    enable: true # 开启必应搜索引擎主动推送
   google:
-    enable: true
+    enable: true # 开启谷歌搜索引擎主动推送
+```
+
+  再次检查config.yml中是否配置有发布网站的url（互联网地址）
+```yaml
+# URL
+## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
+url: 'https://www.junpengzhou.top'
 ```
 
 ### 方式一、纯命令行工具的使用
@@ -45,6 +52,7 @@ npm install --global hexo-seo-integrated-submit
 ```shell
 hexo-sis --help
 ```
+
 * 获取特定命令帮助
 ```shell
 hexo-sis google --help # 获取谷歌推送相关命令帮助
